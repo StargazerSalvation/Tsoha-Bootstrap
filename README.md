@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://mapahkam.users.helsinki.fi/keke)
+* [Linkki sovellukseeni](https://mapahkam.users.cs.helsinki.fi/keke)
 * [Linkki dokumentaatiooni](https://github.com/StargazerSalvation/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
