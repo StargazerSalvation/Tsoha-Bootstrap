@@ -19,3 +19,7 @@
   $routes->get('/drinkit/1', function(){
     HelloWorldController::drinkin_esittely();  
   });
+  
+  $routes->get('/muokkaa', function() {
+      HelloWorldController::drinkin_muokkaus();
+  });

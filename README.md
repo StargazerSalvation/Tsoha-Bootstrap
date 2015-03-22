@@ -7,6 +7,7 @@ Yleisiä linkkejä:
 * [Linkki kirjautumiseen] (https://mapahkam.users.cs.helsinki.fi/keke/login)
 * [Linkki listaukseen] (https://mapahkam.users.cs.helsinki.fi/keke/drinkit)
 * [Linkki esittelyyn] (https://mapahkam.users.cs.helsinki.fi/keke/drinkit/1)
+* [Linkki muokkaukseen] (https://mapahkam.users.cs.helsinki.fi/keke/muokkaa)
 
 ## Työn aihe
 

@@ -24,4 +24,8 @@
     public static function drinkin_esittely(){
         View::make('drinkin_esittely.html');
     }
+    
+    public static function drinkin_muokkaus(){
+        View::make('drinkin_muokkaus.html');
+    }
   }
