@@ -9,15 +9,15 @@
   });
   
   $routes->get('/login', function(){
-  HelloWorldController::login();
+  HelloWorldController::kirjaudu();
   });
   
   $routes->get('/drinkit', function(){
-  HelloWorldController::drinkki_listaus();
+      DrinkkiController::listaa();
   });
   
-  $routes->get('/drinkit/1', function(){
-    HelloWorldController::drinkin_esittely();  
+  $routes->get('/drinkit/:id', function($id){
+      DrinkkiController::nayta($id);  
   });
   
   $routes->get('/muokkaa', function() {

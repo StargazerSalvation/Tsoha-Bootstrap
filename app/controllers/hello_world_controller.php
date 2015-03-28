@@ -10,7 +10,12 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      //View::make('helloworld.html');
+        $drinkki = Drinkki::find(1);
+        $drinkit = Drinkki::all();
+        
+        Kint::dump($drinkki);
+        Kint::dump($drinkit);
     }
     
     public static function login(){

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Long island ice tea</h1>
+<h1>{{drinkki.nimi}}</h1>
 <!-- Napit tähän -->
 <p>
     <a href="{{base_path}}/muokkaa" class="btn btn-success">Muokkaa</a> 
@@ -10,11 +10,11 @@
 <div>
 <h3>Kategoria</h3>
 <ul>
-    <li><strong>Ajankohta:</strong> all day</li>
-    <li><strong>Makeus:</strong> makeahko</li>
-    <li><strong>Lasi:</strong> collins-lasi</li>
-    <li><strong>Lämpötila:</strong> jäinen</li>
-    <li><strong>Menetelmä:</strong> ravistetaan</li>
+    <li><strong>Ajankohta:</strong>{{drinkki.ajankohta}}</li>
+    <li><strong>Makeus:</strong>{{drinkki.makeus}}</li>
+    <li><strong>Lasi:</strong>{{drinkki.lasi}}</li>
+    <li><strong>Lämpötila:</strong>{{drinkki.lampotila}}</li>
+    <li><strong>Menetelmä:</strong>{{drinkki.menetelma}}</li>
 </ul>
 </div>
 
@@ -58,12 +58,11 @@
 
 <div>
 <h3>Kuvaus</h3>
+{{drinkki.kuvaus}}
 </div>
 
 <div>
 <h3>Valmistusohje</h3>
-Laita ravistimeen jäitä, lisää muut ainesosat. ja sekoita pikaisesti. Kaada juoma lasiin, jossa on jääpaloja pohjalla. Valmiin juoman tulisi poreilla kevyesti.
-
-Koristele juoma sitruunaviipaleella.
+{{drinkki.ohje}}
 </div>
 {% endblock %}

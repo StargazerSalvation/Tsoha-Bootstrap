@@ -3,7 +3,7 @@ CREATE TABLE Kayttaja(
     id SERIAL PRIMARY KEY,
     nimi VARCHAR(50) not null,
     salasana VARCHAR(50) not null,
-    sposti VARCHAR(100) not null
+    sposti VARCHAR(100) not null,
     yllapitaja BOOLEAN DEFAULT false
 );
 
@@ -29,5 +29,6 @@ CREATE TABLE Ainesosat(
 
 CREATE TABLE Drinkki_Aineet(
     drinkki_id INTEGER REFERENCES Drinkit(id),
-    aine_id INTEGER REFERENCES Ainesosat(id)
+    aine_id INTEGER REFERENCES Ainesosat(id),
+    maara VARCHAR(20) not null
 );
