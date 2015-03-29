@@ -24,7 +24,8 @@ CREATE TABLE Drinkit(
 CREATE TABLE Ainesosat(
     id SERIAL PRIMARY KEY,
     nimi VARCHAR(100) not null,
-    tyyppi VARCHAR(50) not null
+    tyyppi VARCHAR(50) not null,
+    tietoa VARCHAR(1000)
 );
 
 CREATE TABLE Drinkki_Aineet(

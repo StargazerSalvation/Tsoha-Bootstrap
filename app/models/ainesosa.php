@@ -13,7 +13,7 @@
  */
 class Ainesosa extends BaseModel {
     
-    public $id, $nimi, $tyyppi, $maara;
+    public $id, $nimi, $tyyppi, $maara, $tietoa;
     //put your code here
     public function __construct($attributes = null) {
         parent::__construct($attributes);
@@ -31,7 +31,8 @@ class Ainesosa extends BaseModel {
                     array(
                         'id' => $row['id'],
                         'nimi' => $row['nimi'],
-                        'tyyppi' => $row['tyyppi']
+                        'tyyppi' => $row['tyyppi'],
+                        'tietoa' => $row['tietoa']
                         )
                     );
         }
@@ -49,13 +50,28 @@ class Ainesosa extends BaseModel {
                     array(
                         'id' => $row['id'],
                         'nimi' => $row['nimi'],
-                        'tyyppi' => $row['tyyppi']
+                        'tyyppi' => $row['tyyppi'],
+                        'tietoa' => $row['tietoa']
                         )
                     );
             return $ainesosa;
         }
         
         return null;
+    }
+    
+    public function tallenna(){
+        $query = DB::connection()->prepare('INSERT INTO ainesosat (nimi, tyyppi, '
+                . 'tietoa) VALUES (:nimi, :tyyppi, :tietoa) RETURNING id');
+        $query->execute(array(
+                        'nimi' => $this->nimi,
+                        'tyyppi' => $this->tyyppi,
+                        'tietoa' => $this->tietoa
+                    )
+                );
+        
+        $row = $query->fetch();
+        $this->id = $row['id'];
     }
     
 }

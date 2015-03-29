@@ -14,11 +14,15 @@
 class DrinkkiController extends BaseController{
     public static function listaa(){
         $drinkit = Drinkki::kaikki();
-        View::make('drinkkien_listaus.html', array('drinkit' => $drinkit));
+        View::make('drinkki/drinkkien_listaus.html', array('drinkit' => $drinkit));
     }
     
     public static function nayta($id){
         $drinkki = Drinkki::etsi($id);
-        View::make('drinkin_esittely.html', array('drinkki' => $drinkki));
+        View::make('drinkki/drinkin_esittely.html', array('drinkki' => $drinkki));
+    }
+    
+    public static function drinkin_muokkaus(){
+        View::make('drinkki/drinkin_muokkaus.html');
     }
 }
