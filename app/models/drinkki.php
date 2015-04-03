@@ -19,7 +19,39 @@ class Drinkki extends BaseModel {
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
+        $this->validators = array('validate_nimi','validate_ajankohta', 
+            'validate_makeus', 'validate_lasi', 'validate_lampotila',
+            'validate_menetelma','validate_menetelma','validate_ohje');
     }
+    
+    public function validate_nimi(){
+        return parent::validate_string_lenth($this->nimi, 4);
+    }
+    
+    public function validate_ajankohta(){
+        return parent::validate_string_lenth($this->ajankohta, 2);
+    }
+    
+    public function validate_makeus(){
+        return parent::validate_string_lenth($this->makeus, 3);
+    }
+    
+    public function validate_lasi(){
+        return parent::validate_string_lenth($this->lasi, 3);
+    }
+    
+    public function validate_lampotila(){
+        return parent::validate_string_lenth($this->lampotila, 3);
+    }
+    
+    public function validate_menetelma(){
+        return parent::validate_string_lenth($this->menetelma, 3);
+    }
+    
+    public function validate_ohje(){
+        return parent::validate_string_lenth($this->ohje, 10);
+    }
+    
     
     public static function kaikki(){
         

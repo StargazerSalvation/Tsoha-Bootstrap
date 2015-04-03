@@ -11,7 +11,7 @@
  *
  * @author markus
  */
-class AinesosaController {
+class AinesosaController extends BaseController{
     public static function listaa(){
         $ainesosat = Ainesosa::kaikki();
         View::make('ainesosa/ainesosien_listaus.html', array('ainesosat' => $ainesosat));
@@ -31,15 +31,23 @@ class AinesosaController {
     public static function tallenna(){
         $params = $_POST;
         
-        $ainesosa = new Ainesosa(array(
-                    'nimi' => $params['nimi'],
+        $attribuutit = array('nimi' => $params['nimi'],
                     'tyyppi' => $params['tyyppi'],
-                    'tietoa' => $params['tietoa']
-                    )
-                );
+                    'tietoa' => $params['tietoa']);
+        $ainesosa = new Ainesosa($attribuutit);
         
-        $ainesosa->tallenna();
+        $errors = $ainesosa->errors();
         
-        Redirect::to('/muokkaa_ainesosaa/' . $ainesosa->id, array('message'=> 'Ainesosa lisätty'));
+        if ( count($errors) == 0){
+            $ainesosa->tallenna();
+            Redirect::to('/muokkaa_ainesosaa/' . $ainesosa->id, array(
+                'message'=> 'Ainesosa lisätty'));
+        }else {
+            View::make('ainesosa/ainesosan_lisays.html', array(
+                'errors' => $errors, 'attributes' => $attribuutit));
+        }
+        
+        
+        
     }
 }
