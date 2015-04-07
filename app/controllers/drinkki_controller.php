@@ -25,4 +25,9 @@ class DrinkkiController extends BaseController{
     public static function drinkin_muokkaus(){
         View::make('drinkki/drinkin_muokkaus.html');
     }
+    
+    public static function  ehdotukset(){
+        $ehdotukset = Drinkki::ehdotukset();
+        View::make('drinkki/drinkki_ehdotukset.html', array('ehdotukset' => $ehdotukset));
+    }
 }

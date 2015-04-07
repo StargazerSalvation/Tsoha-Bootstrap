@@ -55,7 +55,7 @@ class Drinkki extends BaseModel {
     
     public static function kaikki(){
         
-        $query = DB::connection()->prepare('SELECT * from Drinkit');
+        $query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = true');
         $query->execute();
         
         $rows = $query->fetchAll();
@@ -106,5 +106,30 @@ class Drinkki extends BaseModel {
         }
         
         return null;
+    }
+    
+    public static function ehdotukset(){
+        $query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = false');
+        $query->execute();
+        
+        $rows = $query->fetchAll();
+        $ehdotukset = array();
+        
+        foreach ($rows as $row){
+            $ehdotukset[] = new Drinkki(
+                    array('id' => $row['id'],
+                        'nimi' => $row['nimi'],
+                        'kuvaus' => $row['kuvaus'],
+                        'ohje' => $row['ohje'],
+                        'ajankohta' => $row['ajankohta'],
+                        'makeus' => $row['makeus'],
+                        'lasi' => $row['lasi'],
+                        'lampotila' => $row['lampotila'],
+                        'menetelma' => $row['menetelma'],
+                        'ehdottaja_id' => $row['ehdottaja_id'],
+                        'hyvaksytty_ehdotus' => $row['hyvaksytty_ehdotus']));
+        }
+        
+        return $ehdotukset;
     }
 }

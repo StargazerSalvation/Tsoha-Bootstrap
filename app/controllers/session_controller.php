@@ -18,7 +18,5 @@ class SessionController extends BaseController {
    	  View::make('home.html');
     }
     
-    public static function kirjaudu(){
-        View::make('login.html');
-    }
+
 }

@@ -5,7 +5,19 @@
   });
   
   $routes->get('/login', function(){
-      SessionController::kirjaudu();
+      KayttajaController::kirjaudu();
+  });
+  
+  $routes->post('/login', function(){
+      KayttajaController::kirjaudu_sisaan();
+  });
+  
+  $routes->get('/kayttajat', function(){
+      KayttajaController::listaa_kayttajat(); 
+  });
+  
+  $routes->get('/ehdotukset', function(){
+      DrinkkiController::ehdotukset();
   });
   
   $routes->get('/drinkit', function(){

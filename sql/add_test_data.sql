@@ -1,5 +1,5 @@
 -- Lisää INSERT INTO lauseet tähän tiedostoon
-INSERT INTO kayttaja (nimi, salasana, sposti) VALUES('markus','markus123','diipadaapa@asa.as');
+INSERT INTO kayttaja (nimi, salasana, sposti, yllapitaja) VALUES('markus','markus123','diipadaapa@asa.as', true);
 INSERT INTO kayttaja (nimi, salasana, sposti) VALUES('kk','kk1234','ljaefa.etoih@asd.ty');
 
 INSERT INTO ainesosat (nimi, tyyppi) VALUES('Gin', 'Väkevä viina');

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Rekisteröityneet käyttäjät</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nimi</th>
+            <th>Sähköposti</th>
+            <th>Ylläpitäjä</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for kayttaja in kayttajat %}
+        <tr>
+            <td>{{kayttaja.id}}</td>
+            <td>{{kayttaja.nimi}}</td>
+            <td>{{kayttaja.sposti}}</td>
+            {% if not kayttaja.yllapitaja %}
+            <td>Ei</td>
+            {% else %}
+            <td>Kyllä</td>
+            {% endif %}
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

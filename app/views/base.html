@@ -40,10 +40,15 @@
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
             <li><a href="{{base_path}}/drinkit">Drinkit</a></li>
+            <li><a href="{{base_path}}/ehdotukset">Ehdotukset</a></li>
             <li><a href="{{base_path}}/ainesosat">Ainesosat</a></li>
           </ul>
             <ul class="nav navbar-nav navbar-right">
+                {% if user_logged_in.yllapitaja %}
+                <li><a href="{{base_path}}/kayttajat">Käyttäjät</a></li>
+                {% endif %}
                 <li><a href="{{base_path}}/login">Sisään kirjautuminen</a></li>
+                <li><a href="#">Kirjaudu ulos</a></li>
             </ul>
         </div>
       </div>
