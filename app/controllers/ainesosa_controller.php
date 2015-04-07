@@ -17,14 +17,50 @@ class AinesosaController extends BaseController{
         View::make('ainesosa/ainesosien_listaus.html', array('ainesosat' => $ainesosat));
     }
     
-    public static function ainesosan_muokkaus($id){
+    public static function nayta($id){
+        $ainesosa = Ainesosa::etsi($id);
+        View::make('ainesosa/ainesosa_esittely.html', array('ainesosa'=> $ainesosa));
+    }
+    
+    public static function muokkaa($id){
         $aineosa = Ainesosa::etsi($id);
         View::make('ainesosa/ainesosan_muokkaus.html', array('ainesosa' => $aineosa));
+    }
+    
+    public static function paivita($id){
+        $params = $_POST;
+        
+        $attribuutit = array('id' => $id, 
+                    'nimi' => $params['nimi'],
+                    'tyyppi' => $params['tyyppi'],
+                    'tietoa' => $params['tietoa']);
+        
+        $ainesosa = new Ainesosa($attribuutit);
+        
+        $errors = $ainesosa->errors();
+        
+        if ( count($errors) > 0 ){
+            View::make('ainesosa/ainesosan_muokkaus.html', 
+                    array('errors' => $errors, 'ainesosa' => $attribuutit));
+        }else{
+            $ainesosa->paivita();
+            
+            Redirect::to('/ainesosa/' . $ainesosa->id, 
+                    array('message' => 'Ainesosaa päivitetty!'));
+        }
     }
     
     // näyttää lomakkeen
     public static function lisaa(){
         View::make('ainesosa/ainesosan_lisays.html');
+    }
+    
+    public static function poista($id){
+        $ainesosa = new Ainesosa(array('id' => $id));
+        
+        $ainesosa->poista();
+        
+        Redirect::to('/ainesosat', array('message' => 'Ainesosa poistettu!'));
     }
     
     // tallettaa kantaan
@@ -40,14 +76,11 @@ class AinesosaController extends BaseController{
         
         if ( count($errors) == 0){
             $ainesosa->tallenna();
-            Redirect::to('/muokkaa_ainesosaa/' . $ainesosa->id, array(
+            Redirect::to('/ainesosa/' . $ainesosa->id, array(
                 'message'=> 'Ainesosa lisätty'));
         }else {
-            View::make('ainesosa/ainesosan_lisays.html', array(
+            View::make('/ainesosa/ainesosan_lisays.html', array(
                 'errors' => $errors, 'attributes' => $attribuutit));
         }
-        
-        
-        
     }
 }

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ainesosa.nimi}}</h1>
+<p>
+    <a href="{{base_path}}/ainesosa/{{ainesosa.id}}/muokkaa" class="btn btn-success">Muokkaa</a>    
+    <form method="post" action="{{base_path}}/ainesosa/{{ainesosa.id}}/poista" style="display: inline-block;">
+        <button type="submit" class="btn-danger">Poista</button>
+    </form>
+</p>
+ 
+<div>
+    <label>Tyyppi</label>
+    <p>{{ainesosa.tyyppi}}</p>
+</div>
+<div>
+    <label>Yleistä</label>
+    <p>{{ainesosa.tietoa}}</p>
+</div>
+
+{% endblock %}

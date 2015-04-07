@@ -25,14 +25,26 @@
     AinesosaController::lisaa();
   });
   // tallentaa kantaan
-  $routes->post('/ainesosa/talleta', function() {
+  $routes->post('/ainesosa/tallenna', function() {
       AinesosaController::tallenna();
   });
   
-    $routes->get('/drinkit/:id', function($id){
+  $routes->get('/drinkit/:id', function($id){
       DrinkkiController::nayta($id);  
   });
   
-  $routes->get('/muokkaa_ainesosaa/:id', function($id){
-      AinesosaController::ainesosan_muokkaus($id); 
+  $routes->get('/ainesosa/:id', function($id){
+      AinesosaController::nayta($id);
+  });
+  
+  $routes->get('/ainesosa/:id/muokkaa', function($id){
+      AinesosaController::muokkaa($id); 
+  });
+  
+  $routes->post('/ainesosa/:id/muokkaa', function($id){
+      AinesosaController::paivita($id);
+  });
+  
+  $routes->post('/ainesosa/:id/poista', function($id){
+      AinesosaController::poista($id); 
   });

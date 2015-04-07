@@ -83,4 +83,18 @@ class Ainesosa extends BaseModel {
         $this->id = $row['id'];
     }
     
+    public function paivita(){
+        $query = DB::connection()->prepare('UPDATE ainesosat '
+                . 'SET nimi = :nimi, tyyppi = :tyyppi, tietoa = :tietoa '
+                . 'WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 
+                                'tyyppi' => $this->tyyppi, 
+                                'tietoa' => $this->tietoa, 
+                                'id' => $this->id));
+    }
+    
+    public function poista(){
+        $query = DB::connection()->prepare('DELETE FROM ainesosat WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }   
 }

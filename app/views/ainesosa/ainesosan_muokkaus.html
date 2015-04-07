@@ -1,20 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Muokkaa ainesosaa: {{ainesosa.nimi}}</h1>
-<form>
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<form method="post" action="{{base_path}}/ainesosa/{{ainesosa.id}}/muokkaa" style="display: inline-block;">
     <div class="form-group">
         <label>Nimi</label>
-        <input type="text" class="form-control" value="{{ainesosa.nimi}}"/>
+        <input type="text" class="form-control" name="nimi" value="{{ainesosa.nimi}}"/>
     </div>
     
     <div class="form-group">
         <label>Tyyppi</label>
-        <input type="text" class="form-control" value="{{ainesosa.tyyppi}}"/>
+        <input type="text" class="form-control" name="tyyppi" value="{{ainesosa.tyyppi}}"/>
     </div>
     
     <div class="form-group">
         <label>Yleistä</label>
-        <textarea class="form-control">{{ainesosa.tietoa}}</textarea>
+        <textarea class="form-control" name="tietoa">{{ainesosa.tietoa}}</textarea>
     </div>
     
     <div class="form-group">
