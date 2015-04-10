@@ -12,3 +12,10 @@ Yleisiä linkkejä:
 ## Työn aihe
 
 Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Drinkkiarkisto.html) 
+
+Sisäänkirjautuminen: 
+
+|Käyttäjätunnus | Salasana | Ylläpitäjä|
+|:-------------:|:--------:|:---------:|
+|markus         | markus123| ylläpitäjä|
+|kk             |  kk1234  | ei ylläpitäjä|
