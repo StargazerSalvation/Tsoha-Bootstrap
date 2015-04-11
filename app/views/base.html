@@ -47,8 +47,13 @@
                 {% if user_logged_in.yllapitaja %}
                 <li><a href="{{base_path}}/kayttajat">Käyttäjät</a></li>
                 {% endif %}
+                {% if not user_logged_in %}
                 <li><a href="{{base_path}}/login">Sisään kirjautuminen</a></li>
+                <li><a href="{{base_path}}/kayttaja/rekisterointi">Rekisteröidy</a></li>
+                {% endif %}
+                {% if user_logged_in %}
                 <li><a href="#">Kirjaudu ulos</a></li>
+                {% endif %}
             </ul>
         </div>
       </div>

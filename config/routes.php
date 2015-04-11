@@ -12,6 +12,14 @@
       KayttajaController::kirjaudu_sisaan();
   });
   
+  $routes->get('/kayttaja/rekisterointi', function(){
+      KayttajaController::rekisteroidy();
+  });
+  
+  $routes->post('/kayttaja/rekisterointi', function(){
+      KayttajaController::registeroi_kayttaja(); 
+  });
+  
   $routes->get('/kayttajat', function(){
       KayttajaController::listaa_kayttajat(); 
   });

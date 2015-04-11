@@ -34,6 +34,49 @@ class KayttajaController {
         }
     }
     
+    public static function rekisteroidy(){
+        View::make('kayttaja/rekisterointi.html');
+    }
+    
+    public static function registeroi_kayttaja(){
+        $params = $_POST;
+        
+        $rows = Kayttaja::tarkista_olemassaolo($params['kayttajatunnus']);
+        $errors = array();
+        
+        if ( strlen($params['salasana1']) == 0 ){
+            $errors[] = 'Salasana ei saa olla tyhjä';
+        }
+        
+        if ( strlen($params['sposti']) == 0 ){
+            $errors[] = 'Sähköposti osoite ei saa olla tyhjä';
+        }
+        
+        if ( $params['salasana1'] != $params['salasana2'] ){
+            $errors[] = 'Salasanat eivät täsmää';
+        }
+        
+        if (!$rows && count($errors) == 0){
+            $attribuutit = array('nimi' => $params['kayttajatunnus'],
+                    'salasana' => $params['salasana1'],
+                    'sposti' => $params['sposti']);
+            $kayttaja = new Kayttaja($attribuutit);
+            $kayttaja->tallenna();
+            Redirect::to('/login', array('message' => 'Kiitoksia rekisteröitymisestä, voit nyt kirjautua sisään!',
+                                    'kayttajatunnus' => $kayttaja->nimi));
+            
+        }
+        else{
+            $errors[] = 'Käyttäjätunnus on jo käytössä.';
+            
+            Redirect::to('/kayttaja/rekisterointi', 
+                    array('errors' => $errors, 
+                    'kayttajatunnus' => $params['kayttajatunnus'],
+                        'sposti' => $params['sposti']));
+        }
+    }
+    
+    
     public static function listaa_kayttajat(){
         $kayttajat = Kayttaja::kaikki();
         

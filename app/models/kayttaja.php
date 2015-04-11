@@ -13,7 +13,7 @@
  */
 class Kayttaja extends BaseModel {
 
-    public $id, $nimi, $sposti, $yllapitaja;
+    public $id, $nimi, $sposti, $yllapitaja, $salasana;
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
@@ -72,5 +72,25 @@ class Kayttaja extends BaseModel {
         }
         
         return $kayttajat;
+    }
+    
+    public static function tarkista_olemassaolo($ktunnus){
+        $query = DB::connection()->prepare('SELECT * from kayttaja where nimi = :nimi');
+        $query->execute(array('nimi' => $ktunnus));
+        
+        $rows = $query->fetchAll();
+        
+        return $rows;
+    }
+    
+    public function tallenna(){
+        $query = DB::connection()->prepare('INSERT INTO kayttaja (nimi, salasana, '
+                . 'sposti) VALUES (:nimi, :salasana, :sposti)');
+        $query->execute(array(
+                        'nimi' => $this->nimi,
+                        'salasana' => $this->salasana,
+                        'sposti' => $this->sposti
+                    )
+                );
     }
 }
