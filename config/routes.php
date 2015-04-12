@@ -12,6 +12,10 @@
       KayttajaController::kirjaudu_sisaan();
   });
   
+  $routes->post('/logout', function(){
+      KayttajaController::kirjaudu_ulos();
+  });
+  
   $routes->get('/kayttaja/rekisterointi', function(){
       KayttajaController::rekisteroidy();
   });

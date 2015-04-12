@@ -23,6 +23,7 @@ class DrinkkiController extends BaseController{
     }
     
     public static function drinkin_muokkaus(){
+        self::check_logged_in();
         View::make('drinkki/drinkin_muokkaus.html');
     }
     

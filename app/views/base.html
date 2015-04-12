@@ -52,7 +52,11 @@
                 <li><a href="{{base_path}}/kayttaja/rekisterointi">Rekisteröidy</a></li>
                 {% endif %}
                 {% if user_logged_in %}
-                <li><a href="#">Kirjaudu ulos</a></li>
+                <li>
+                    <form method="post" action="{{base_path}}/logout">
+                        <button type="submit" class="btn btn-link">Kirjaudu ulos</button> 
+                    </form>
+                </li>
                 {% endif %}
             </ul>
         </div>
@@ -60,6 +64,29 @@
     </nav>
 
     <div id="main-container">
+    {% if message %}
+    <div class="alert">
+        <ul>
+            <li>{{message}}</li>
+        </ul>
+    </div>
+    {% endif %}
+    {% if errors %}
+    <div class="alert alert-danger">
+        <ul>
+        {% for error in errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="alert alert-danger">
+        <ul>
+            <li>{{error}}</li>
+        </ul>
+    </div>
+    {% endif %}
       <!-- Dynaaminen sisältö tulee tähän -->
       {% block content %}{% endblock %}
     </div>

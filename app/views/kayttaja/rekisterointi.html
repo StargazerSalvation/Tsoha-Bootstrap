@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Rekisteröidy käyttäjäksi</h1>
+<form method="post" action="{{base_path}}/kayttaja/rekisterointi">
+    <div class="form-group">
+        <label>Anna haluamasi käyttäjätunnus</label>
+        <input type="text" class="form-control" name="kayttajatunnus" value="{{kayttajatunnus}}">
+    </div>
+    <div class="form-group">
+        <label>Anna haluamasi salasana</label>
+        <input type="password" class="form-control" name="salasana1">
+    </div>
+    
+    <div class="form-group">
+        <label>Toista salasana</label>
+        <input type="password" class="form-control" name="salasana2">
+    </div>
+    
+    <div class="form-group">
+        <label>Sähköposti</label>
+        <input type="email" class="form-control" name="sposti" value="{{sposti}}">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Rekisteröidy</button>
+    
+</form>
+{% endblock %}

@@ -11,7 +11,7 @@
  *
  * @author markus
  */
-class KayttajaController {
+class KayttajaController extends BaseController{
 
     public static function kirjaudu(){
         View::make('login.html');
@@ -32,6 +32,11 @@ class KayttajaController {
             
             Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
         }
+    }
+    
+    public static function kirjaudu_ulos(){
+        $_SESSION['kayttaja'] = null;
+        Redirect::to('/', array('message' => 'Olet kirjautunut ulos'));
     }
     
     public static function rekisteroidy(){
@@ -76,8 +81,8 @@ class KayttajaController {
         }
     }
     
-    
     public static function listaa_kayttajat(){
+        self::check_logged_in();
         $kayttajat = Kayttaja::kaikki();
         
         View::make('kayttaja/kayttajat_listaus.html', array('kayttajat' => $kayttajat));

@@ -23,6 +23,8 @@ class AinesosaController extends BaseController{
     }
     
     public static function muokkaa($id){
+        self::check_logged_in();
+        
         $aineosa = Ainesosa::etsi($id);
         View::make('ainesosa/ainesosan_muokkaus.html', array('ainesosa' => $aineosa));
     }
@@ -52,10 +54,12 @@ class AinesosaController extends BaseController{
     
     // näyttää lomakkeen
     public static function lisaa(){
+        self::check_logged_in();
         View::make('ainesosa/ainesosan_lisays.html');
     }
     
     public static function poista($id){
+        self::check_logged_in();
         $ainesosa = new Ainesosa(array('id' => $id));
         
         $ainesosa->poista();

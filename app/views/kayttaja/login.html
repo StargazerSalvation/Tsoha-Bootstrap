@@ -1,20 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Kirjaudu sisään</h1>
-{% if message %} 
-<div>
-    <ul>
-        <li>{{message}}</li>
-    </ul>
-</div>
-{% endif %}
-{% if error %}
-<div class="alert alert-danger">
-    <ul>
-        <li>{{error}}</li>
-    </ul>
-</div>
-{% endif %}
 <form method="post" action="{{base_path}}/login">
     <div class="form-group">
         <label>Käyttäjätunnus</label>
