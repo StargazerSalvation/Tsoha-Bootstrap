@@ -15,7 +15,8 @@ class Drinkki extends BaseModel {
     
     public $id, $nimi, $kuvaus, $ohje, $ajankohta, 
             $makeus, $lasi, $lampotila, $menetelma, 
-            $ehdottaja_id, $hyvaksytty_ehdotus, $ehdottaja, $aineet;
+            $ehdottaja_id, $hyvaksytty_ehdotus, $ehdottaja, $maara;
+    public  $aineet = array();
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
@@ -55,7 +56,8 @@ class Drinkki extends BaseModel {
     
     public static function kaikki(){
         
-        $query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = true');
+        //$query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = true');
+        $query = DB::connection()->prepare('select *, (select count(*) from drinkki_aineet where drinkki_aineet.drinkki_id = drinkit.id) as maara, (select nimi from kayttaja where id = drinkit.ehdottaja_id) as ehdottaja from drinkit');
         $query->execute();
         
         $rows = $query->fetchAll();
@@ -73,7 +75,9 @@ class Drinkki extends BaseModel {
                         'lampotila' => $row['lampotila'],
                         'menetelma' => $row['menetelma'],
                         'ehdottaja_id' => $row['ehdottaja_id'],
-                        'hyvaksytty_ehdotus' => $row['hyvaksytty_ehdotus']));
+                        'ehdottaja' => $row['ehdottaja'],
+                        'hyvaksytty_ehdotus' => $row['hyvaksytty_ehdotus'],
+                        'maara' => $row['maara']));
                         
         }
         
@@ -84,7 +88,7 @@ class Drinkki extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Drinkit WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
-        
+        // ensin haetaan drinkki, jos löytyy niin tehdään drinkin tiedot
         if ( $row ){
             $drinkki = new Drinkki(
                     array(
@@ -98,9 +102,44 @@ class Drinkki extends BaseModel {
                         'lampotila' => $row['lampotila'],
                         'menetelma' => $row['menetelma'],
                         'ehdottaja_id' => $row['ehdottaja_id'],
-                        'hyvaksytty_ehdotus' => $row['hyvaksytty_ehdotus']
+                        'hyvaksytty_ehdotus' => $row['hyvaksytty_ehdotus'],
+                        'aineet' => array()
                         )
                     );
+            // jonka jälkeen haetaan drinkkiin kuuluvat aineet, drinkki_aineet -taulusta
+           // $query = DB::connection()->prepare('SELECT * FROM ainesosat where id'
+           //         . ' in (SELECT aine_id FROM drinkki_aineet where drinkki_id = :id)');
+            /*
+             select *, (select maara from drinkki_aineet where drinkki_id = 1 and aine_id = id) from ainesosat where id in (select aine_id from drinkki_aineet where drinkki_id = 1);
+             */
+            // Hieman säädettävää oli queryssa joten piti selvittää vaiheittain.
+            /*$query = DB::connection()->prepare('SELECT *,'
+                    . '(SELECT maara FROM drinkki_aineet WHERE drinkki_id = :drinkki_id'
+                    . 'and aine_id = id) as maara FROM ainesosat WHERE id in '
+                    . '(SELECT aine_id FROM drinkki_aineet WHERE drinkki_id = :drinkki_id)');
+             * 
+             */
+            $query = DB::connection()->prepare('SELECT *, (SELECT maara FROM '
+                    . 'drinkki_aineet WHERE drinkki_id = :drinkki_id and aine_id = id) '
+                    . 'as maara FROM ainesosat WHERE id in (SELECT aine_id FROM '
+                    . 'drinkki_aineet WHERE drinkki_id = :drinkki_id)');
+            $query->execute();
+            $query->execute(array('drinkki_id' => $id));
+            $aineet = $query->fetchAll();
+
+            // ja lisätään aineet drinkin aineet -tauluun. array(array()).
+            foreach ( $aineet as $aine ){
+
+                $drinkki->aineet[] = new Ainesosa(
+                    array(
+                        'id' => $aine['id'],
+                        'nimi' => $aine['nimi'],
+                        'tyyppi' => $aine['tyyppi'],
+                        'tietoa' => $aine['tietoa'],
+                        'maara' => $aine['maara']
+                        )
+                    );
+            }
             
             return $drinkki;
         }

@@ -21,37 +21,19 @@
 <div>
     <h3>Ainesosat</h3>
     <table class="table">
-        <thead></thead>
+        <thead>
+            <tr>
+                <td>Ainesosa</td>
+                <td>Määrä</td>
+            </tr>
+        </thead>
         <tbody>
+            {% for ainesosa in drinkki.aineet %}
             <tr>
-                <td>Gin</td>
-                <td>1 cl</td>
+                <td>{{ainesosa.nimi}}</td>
+                <td>{{ainesosa.maara}}</td>
             </tr>
-            <tr>
-                <td>Rommi (vaalea)</td>
-                <td>1 cl</td>
-            </tr>
-            <tr>
-                <td>Cola limsa</td>
-                <td>1 dl</td>
-            </tr>
-            <tr> 
-                <td>Siirappi (sitruuna)</td>
-                <td>1,5 cl</td>
-            </tr>
-            <tr>
-                <td>Triple sec</td>
-                <td>1 cl</td>
-            </tr>
-            <tr>
-                <td>Tequila</td>
-                <td>1 cl</td>
-            </tr>
-            <tr> 
-                <td>Vodka</td>
-                <td>1 cl</td>
-            </tr>
-                
+            {% endfor %}                
         </tbody>
     </table>
 </div>
