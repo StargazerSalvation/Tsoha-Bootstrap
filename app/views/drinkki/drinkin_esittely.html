@@ -30,7 +30,7 @@
         <tbody>
             {% for ainesosa in drinkki.aineet %}
             <tr>
-                <td>{{ainesosa.nimi}}</td>
+                <td><a href="{{base_path}}/ainesosa/{{ainesosa.id}}">{{ainesosa.nimi}}</a></td>
                 <td>{{ainesosa.maara}}</td>
             </tr>
             {% endfor %}                

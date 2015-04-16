@@ -23,5 +23,15 @@
     <label>Yleistä</label>
     <p>{{ainesosa.tietoa}}</p>
 </div>
+<div>
+    <label>Mahdollisia drinkkejä</label>
+    {% if drinkit %}
+    {% for drinkki in drinkit %}
+    <p><a href="{{base_path}}/drinkit/{{drinkki.id}}">{{drinkki.nimi}}</a></p>
+    {% endfor %}
+    {% else %}
+    <p>Ei löytynyt drinkkejä</p>
+    {% endif %}
+</div>
 
 {% endblock %}

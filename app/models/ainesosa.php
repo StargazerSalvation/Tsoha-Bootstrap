@@ -69,6 +69,21 @@ class Ainesosa extends BaseModel {
         return null;
     }
     
+    public function hae_ainesosan_drinkit(){
+        
+        $query = DB::connection()->prepare('select nimi, id from drinkit where id in (select drinkki_id from drinkki_aineet where aine_id = :aine_id)');
+        $query->execute(array('aine_id' => $this->id));
+        $rows = $query->fetchAll();
+        
+        $drinkit = array();
+        foreach( $rows as $row ){
+            $drinkit[] = array('nimi' => $row['nimi'],
+                                'id' => $row['id']);
+        }
+
+        return $drinkit;
+    }
+    
     public function tallenna(){
         $query = DB::connection()->prepare('INSERT INTO ainesosat (nimi, tyyppi, '
                 . 'tietoa) VALUES (:nimi, :tyyppi, :tietoa) RETURNING id');
