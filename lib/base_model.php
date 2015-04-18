@@ -27,14 +27,21 @@
       return $errors;
     }
     
-    public function validate_string_lenth($string, $length){
+    public function validate_string_lenth($string, $minimum, $maximum){
         $errors = array();
-        if ( $string == '' || $string == null ){
-            $errors[] = ''. $string . ' ei saa olla tyhjä';
+        
+        if ($minimum > 0){
+            if ( $string == '' || $string == null ){
+                $errors[] = ''. $string . ' ei saa olla tyhjä';
+            }
         }
         
-        if (strlen($string) < $length ){
-            $errors[] = '' . $string . ' pituuden tulee olla vähintään '. $length .' merkkiä';
+        if (strlen($string) < $minimum ){
+            $errors[] = '' . $string . ' pituuden tulee olla vähintään '. $minimum .' merkkiä';
+        }
+        
+        if (strlen($string) > $maximum){
+            $errors[] = '' . $string . ' pituuden maksimi pituus on ' . $maximum . ' merkkiä';
         }
         
         return $errors;

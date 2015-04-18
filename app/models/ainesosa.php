@@ -17,15 +17,22 @@ class Ainesosa extends BaseModel {
     //put your code here
     public function __construct($attributes = null) {
         parent::__construct($attributes);
-        $this->validators = array('validate_nimi', 'validate_tyyppi');
+        $this->validators = array(
+            'validate_nimi', 
+            'validate_tyyppi', 
+            'validate_tietoa');
     }
     
     public function validate_nimi(){
-        return parent::validate_string_lenth($this->nimi, 3);
+        return parent::validate_string_lenth($this->nimi, 3, 100);
     }
     
     public function validate_tyyppi(){
-        return parent::validate_string_lenth($this->tyyppi, 3);
+        return parent::validate_string_lenth($this->tyyppi, 3, 50);
+    }
+    
+    public function validate_tietoa(){
+        return parent::validate_string_lenth($this->tietoa, 0, 1000);
     }
     
     public static function kaikki(){
@@ -67,6 +74,21 @@ class Ainesosa extends BaseModel {
         }
         
         return null;
+    }
+    
+    public function hae_ainesosan_drinkit(){
+        
+        $query = DB::connection()->prepare('select nimi, id from drinkit where id in (select drinkki_id from drinkki_aineet where aine_id = :aine_id)');
+        $query->execute(array('aine_id' => $this->id));
+        $rows = $query->fetchAll();
+        
+        $drinkit = array();
+        foreach( $rows as $row ){
+            $drinkit[] = array('nimi' => $row['nimi'],
+                                'id' => $row['id']);
+        }
+
+        return $drinkit;
     }
     
     public function tallenna(){

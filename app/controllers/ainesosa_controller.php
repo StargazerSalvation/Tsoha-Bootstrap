@@ -19,7 +19,8 @@ class AinesosaController extends BaseController{
     
     public static function nayta($id){
         $ainesosa = Ainesosa::etsi($id);
-        View::make('ainesosa/ainesosa_esittely.html', array('ainesosa'=> $ainesosa));
+        $drinkit = $ainesosa->hae_ainesosan_drinkit();
+        View::make('ainesosa/ainesosa_esittely.html', array('ainesosa'=> $ainesosa, 'drinkit' => $drinkit));
     }
     
     public static function muokkaa($id){

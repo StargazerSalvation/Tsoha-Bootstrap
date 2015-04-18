@@ -21,10 +21,10 @@
         {% for drinkki in drinkit %}
         <tr>
             <td><a href="{{base_path}}/drinkit/{{drinkki.id}}">{{drinkki.nimi}}</a></td>
-            <td>7</td>
+            <td>{{drinkki.maara}}</td>
             <td>{{drinkki.ajankohta}}</td>
             <td>{{drinkki.lampotila}}</td>
-            <td>{{drinkki.ehdottaja_id}}</td>
+            <td>{{drinkki.ehdottaja}}</td>
         </tr>
         {% endfor %}
     </tbody>
