@@ -26,38 +26,40 @@ class Drinkki extends BaseModel {
     }
     
     public function validate_nimi(){
-        return parent::validate_string_lenth($this->nimi, 4);
+        return parent::validate_string_lenth($this->nimi, 4, 100);
     }
     
     public function validate_ajankohta(){
-        return parent::validate_string_lenth($this->ajankohta, 2);
+        return parent::validate_string_lenth($this->ajankohta, 2, 50);
     }
     
     public function validate_makeus(){
-        return parent::validate_string_lenth($this->makeus, 3);
+        return parent::validate_string_lenth($this->makeus, 3, 50);
     }
     
     public function validate_lasi(){
-        return parent::validate_string_lenth($this->lasi, 3);
+        return parent::validate_string_lenth($this->lasi, 3, 50);
     }
     
     public function validate_lampotila(){
-        return parent::validate_string_lenth($this->lampotila, 3);
+        return parent::validate_string_lenth($this->lampotila, 3, 50);
     }
     
     public function validate_menetelma(){
-        return parent::validate_string_lenth($this->menetelma, 3);
+        return parent::validate_string_lenth($this->menetelma, 3, 50);
     }
     
     public function validate_ohje(){
-        return parent::validate_string_lenth($this->ohje, 10);
+        return parent::validate_string_lenth($this->ohje, 10, 1000);
     }
-    
     
     public static function kaikki(){
         
         //$query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = true');
-        $query = DB::connection()->prepare('select *, (select count(*) from drinkki_aineet where drinkki_aineet.drinkki_id = drinkit.id) as maara, (select nimi from kayttaja where id = drinkit.ehdottaja_id) as ehdottaja from drinkit');
+        $query = DB::connection()->prepare('select *, (select count(*) from drinkki_aineet '
+                . 'where drinkki_aineet.drinkki_id = drinkit.id) as maara, '
+                . '(select nimi from kayttaja where id = drinkit.ehdottaja_id) '
+                . 'as ehdottaja from drinkit where hyvaksytty_ehdotus = true');
         $query->execute();
         
         $rows = $query->fetchAll();
@@ -107,18 +109,6 @@ class Drinkki extends BaseModel {
                         )
                     );
             // jonka jälkeen haetaan drinkkiin kuuluvat aineet, drinkki_aineet -taulusta
-           // $query = DB::connection()->prepare('SELECT * FROM ainesosat where id'
-           //         . ' in (SELECT aine_id FROM drinkki_aineet where drinkki_id = :id)');
-            /*
-             select *, (select maara from drinkki_aineet where drinkki_id = 1 and aine_id = id) from ainesosat where id in (select aine_id from drinkki_aineet where drinkki_id = 1);
-             */
-            // Hieman säädettävää oli queryssa joten piti selvittää vaiheittain.
-            /*$query = DB::connection()->prepare('SELECT *,'
-                    . '(SELECT maara FROM drinkki_aineet WHERE drinkki_id = :drinkki_id'
-                    . 'and aine_id = id) as maara FROM ainesosat WHERE id in '
-                    . '(SELECT aine_id FROM drinkki_aineet WHERE drinkki_id = :drinkki_id)');
-             * 
-             */
             $query = DB::connection()->prepare('SELECT *, (SELECT maara FROM '
                     . 'drinkki_aineet WHERE drinkki_id = :drinkki_id and aine_id = id) '
                     . 'as maara FROM ainesosat WHERE id in (SELECT aine_id FROM '

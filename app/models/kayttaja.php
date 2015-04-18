@@ -17,6 +17,19 @@ class Kayttaja extends BaseModel {
     
     public function __construct($attributes = null) {
         parent::__construct($attributes);
+        $this->validators = array('validate_nimi','validate_sposti','validate_salasana');
+    }
+    
+    public function validate_nimi() {
+        return parent::validate_string_lenth($this->nimi, 3, 50);
+    }
+    
+    public function validate_sposti(){
+        return parent::validate_string_lenth($this->sposti, 6, 100);
+    }
+    
+    public function validate_salasana(){
+        return parent::validate_string_lenth($this->salasana, 4, 50);
     }
     
     public static function tunnistaudu($kayttajatunnus, $salasana){

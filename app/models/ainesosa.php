@@ -17,15 +17,22 @@ class Ainesosa extends BaseModel {
     //put your code here
     public function __construct($attributes = null) {
         parent::__construct($attributes);
-        $this->validators = array('validate_nimi', 'validate_tyyppi');
+        $this->validators = array(
+            'validate_nimi', 
+            'validate_tyyppi', 
+            'validate_tietoa');
     }
     
     public function validate_nimi(){
-        return parent::validate_string_lenth($this->nimi, 3);
+        return parent::validate_string_lenth($this->nimi, 3, 100);
     }
     
     public function validate_tyyppi(){
-        return parent::validate_string_lenth($this->tyyppi, 3);
+        return parent::validate_string_lenth($this->tyyppi, 3, 50);
+    }
+    
+    public function validate_tietoa(){
+        return parent::validate_string_lenth($this->tietoa, 0, 1000);
     }
     
     public static function kaikki(){
