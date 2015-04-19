@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Hyväksymättömät ehdotukset</h1>
-
+<p> 
+    <a href="{{base_path}}/drinkit/lisaa" class="btn btn-success">Ehdota drinkkiä</a> 
+</p>
 {% if not ehdotukset %}
 <p>Ei ehdotuksia hyväksyttäväksi</p>
 {% else %}

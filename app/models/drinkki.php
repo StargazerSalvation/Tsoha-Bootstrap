@@ -22,7 +22,7 @@ class Drinkki extends BaseModel {
         parent::__construct($attributes);
         $this->validators = array('validate_nimi','validate_ajankohta', 
             'validate_makeus', 'validate_lasi', 'validate_lampotila',
-            'validate_menetelma','validate_menetelma','validate_ohje');
+            'validate_menetelma','validate_ohje');
     }
     
     public function validate_nimi(){
@@ -160,5 +160,31 @@ class Drinkki extends BaseModel {
         }
         
         return $ehdotukset;
+    }
+    
+    public function tallenna(){        
+        $query = DB::connection()->prepare('INSERT INTO Drinkit (nimi, kuvaus, ohje, ajankohta, makeus, lasi, lampotila, menetelma, ehdottaja_id) VALUES (:nimi, :kuvaus, :ohje, :ajankohta, :makeus, :lasi, :lampotila, :menetelma, :ehdottaja_id) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi,
+                        'kuvaus' => $this->kuvaus,
+                        'ohje' => $this->ohje,
+                        'ajankohta' => $this->ajankohta,
+                        'makeus' => $this->makeus,
+                        'lasi' => $this->lasi,
+                        'lampotila' => $this->lampotila,
+                        'menetelma' => $this->menetelma,
+                        'ehdottaja_id' => $this->ehdottaja_id));
+        
+        $row = $query->fetch();
+        $this->id = $row['id'];
+        
+        foreach ( $this->aineet as $aine ){
+            $query = DB::connection()->prepare('INSERT INTO Drinkki_aineet (drinkki_id, aine_id, maara) VALUES (:drinkki_id, :aine_id, :maara');
+            $query->execute(array('drinkki_id' => $this->id,
+                                    'aine_id' => $aine['id'],
+                                    'maara' => $aine['maara']));          
+         
+         
+        }
+        
     }
 }

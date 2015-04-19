@@ -53,6 +53,14 @@
       AinesosaController::tallenna();
   });
   
+  $routes->get('/drinkit/lisaa', function(){
+      DrinkkiController::lisaa();
+  });
+  
+  $routes->post('/drinkit/tallenna', function(){
+  DrinkkiController::tallenna();
+  });
+  
   $routes->get('/drinkit/:id', function($id){
       DrinkkiController::nayta($id);  
   });

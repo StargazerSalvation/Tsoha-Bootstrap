@@ -36,7 +36,7 @@ class Ainesosa extends BaseModel {
     }
     
     public static function kaikki(){
-        $query = DB::connection()->prepare('SELECT * from Ainesosat');
+        $query = DB::connection()->prepare('SELECT * FROM ainesosat order by tyyppi, nimi');
         $query->execute();
         
         $rows = $query->fetchAll();
