@@ -22,7 +22,12 @@
         <tr>
              <td><a href="{{base_path}}/drinkit/{{ehdotus.id}}">{{ehdotus.nimi}}</a></td>
             <td>{{ehdotus.ehdottaja}}</td>
-            <td></td>
+            <td>{% if user_logged_in.yllapitaja %}
+                <form action="{{base_path}}/drinkit/hyvaksy/{{ehdotus.id}}" method="post" >
+                    <button type="submit" class="btn btn-primary">Hyväksy drinkiksi</button>
+                </form>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -36,6 +36,10 @@
       DrinkkiController::listaa();
   });
   
+  $routes->post('/drinkit/hyvaksy/:id', function($id){
+      DrinkkiController::hyvaksy_drinkiksi($id);
+  });
+  
   $routes->get('/muokkaa_drinkkia', function() {
       DrinkkiController::drinkin_muokkaus();
   });

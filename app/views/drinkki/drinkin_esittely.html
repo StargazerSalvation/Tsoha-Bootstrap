@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{drinkki.nimi}}</h1>
-
+{% if user_logged_in %}
 <p>
     <a href="{{base_path}}/muokkaa_drinkkia" class="btn btn-success">Muokkaa</a> 
 </p>
-
+{% endif %}
 <div>
 <h3>Kategoria</h3>
 <ul>

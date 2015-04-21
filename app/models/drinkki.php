@@ -55,7 +55,6 @@ class Drinkki extends BaseModel {
     
     public static function kaikki(){
         
-        //$query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = true');
         $query = DB::connection()->prepare('select *, (select count(*) from drinkki_aineet '
                 . 'where drinkki_aineet.drinkki_id = drinkit.id) as maara, '
                 . '(select nimi from kayttaja where id = drinkit.ehdottaja_id) '
@@ -137,6 +136,11 @@ class Drinkki extends BaseModel {
         return null;
     }
     
+    public static function hyvaksy($id){
+        $query = DB::connection()->prepare('UPDATE drinkit SET hyvaksytty_ehdotus = true WHERE id = :id');
+        $query->execute(array('id' => $id));
+    }
+
     public static function ehdotukset(){
         $query = DB::connection()->prepare('select *, (select count(*) from drinkki_aineet '
                 . 'where drinkki_aineet.drinkki_id = drinkit.id) as maara, '
