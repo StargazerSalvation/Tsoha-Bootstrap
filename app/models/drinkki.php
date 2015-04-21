@@ -138,7 +138,10 @@ class Drinkki extends BaseModel {
     }
     
     public static function ehdotukset(){
-        $query = DB::connection()->prepare('SELECT * from Drinkit where hyvaksytty_ehdotus = false');
+        $query = DB::connection()->prepare('select *, (select count(*) from drinkki_aineet '
+                . 'where drinkki_aineet.drinkki_id = drinkit.id) as maara, '
+                . '(select nimi from kayttaja where id = drinkit.ehdottaja_id) '
+                . 'as ehdottaja from drinkit where hyvaksytty_ehdotus = false');
         $query->execute();
         
         $rows = $query->fetchAll();
@@ -156,6 +159,7 @@ class Drinkki extends BaseModel {
                         'lampotila' => $row['lampotila'],
                         'menetelma' => $row['menetelma'],
                         'ehdottaja_id' => $row['ehdottaja_id'],
+                        'ehdottaja' => $row['ehdottaja'],
                         'hyvaksytty_ehdotus' => $row['hyvaksytty_ehdotus']));
         }
         
@@ -178,13 +182,11 @@ class Drinkki extends BaseModel {
         $this->id = $row['id'];
         
         foreach ( $this->aineet as $aine ){
-            $query = DB::connection()->prepare('INSERT INTO Drinkki_aineet (drinkki_id, aine_id, maara) VALUES (:drinkki_id, :aine_id, :maara');
+            
+            $query = DB::connection()->prepare('INSERT INTO Drinkki_aineet (drinkki_id, aine_id, maara) VALUES (:drinkki_id, :aine_id, :maara)');
             $query->execute(array('drinkki_id' => $this->id,
                                     'aine_id' => $aine['id'],
-                                    'maara' => $aine['maara']));          
-         
-         
-        }
-        
+                                    'maara' => $aine['maara']));                     
+        }        
     }
 }

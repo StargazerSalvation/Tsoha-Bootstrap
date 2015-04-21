@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Hyväksymättömät ehdotukset</h1>
+{% if user_logged_in %}
 <p> 
     <a href="{{base_path}}/drinkit/lisaa" class="btn btn-success">Ehdota drinkkiä</a> 
 </p>
+{% endif %}
 {% if not ehdotukset %}
 <p>Ei ehdotuksia hyväksyttäväksi</p>
 {% else %}
@@ -18,7 +20,7 @@
     <tbody>
         {% for ehdotus in ehdotukset %}
         <tr>
-            <td>{{ehdotus.nimi}}</td>
+             <td><a href="{{base_path}}/drinkit/{{ehdotus.id}}">{{ehdotus.nimi}}</a></td>
             <td>{{ehdotus.ehdottaja}}</td>
             <td></td>
         </tr>

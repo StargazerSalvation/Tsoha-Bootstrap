@@ -12,6 +12,11 @@
  * @author markus
  */
 class KayttajaController extends BaseController{
+    
+    public static function index(){
+      // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
+   	  View::make('home.html');
+    }
 
     public static function kirjaudu(){
         View::make('login.html');

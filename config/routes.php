@@ -1,7 +1,7 @@
 <?php
 
   $routes->get('/', function() {
-      SessionController::index();
+      KayttajaController::index();
   });
   
   $routes->get('/login', function(){
