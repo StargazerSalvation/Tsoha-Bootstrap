@@ -136,6 +136,17 @@ class Drinkki extends BaseModel {
         return null;
     }
     
+    public function poista(){
+        
+        // Poistetaan ensin liitostaulusta drinkkiin liittyvät aineet.
+        $query = DB::connection()->prepare('DELETE from Drinkki_aineet where drinkki_id = :id');
+        $query->execute(array('id' => $this->id));
+        
+        // Sen jälkeen poistetaan itse drinkki.
+        $query = DB::connection()->prepare('DELETE FROM drinkit WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }  
+    
     public static function hyvaksy($id){
         $query = DB::connection()->prepare('UPDATE drinkit SET hyvaksytty_ehdotus = true WHERE id = :id');
         $query->execute(array('id' => $id));

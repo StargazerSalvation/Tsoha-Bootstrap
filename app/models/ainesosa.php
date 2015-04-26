@@ -116,6 +116,14 @@ class Ainesosa extends BaseModel {
     }
     
     public function poista(){
+        
+        $drinkit = $this->hae_ainesosan_drinkit();
+        
+        foreach ( $drinkit as $poistettava ){
+            $drinkki = Drinkki::etsi($poistettava['id']);
+            $drinkki->poista();
+        }
+        
         $query = DB::connection()->prepare('DELETE FROM ainesosat WHERE id = :id');
         $query->execute(array('id' => $this->id));
     }   

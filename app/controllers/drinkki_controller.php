@@ -47,6 +47,15 @@ class DrinkkiController extends BaseController{
         View::make('drinkki/drinkin_lisays.html', array('ainesosat' => $ainesosat));
     }
     
+    public static function poista($id){
+        self::check_logged_in();
+        $drinkki = new Drinkki(array('id' => $id));
+        
+        $drinkki->poista();
+        
+        Redirect::to('/drinkit', array('message' => 'Drinkki poistettu!'));
+    }
+    
     // päivittää kantaan drinkin tiedot uusilla tiedoilla.
     public static function paivita($id){
         

@@ -81,6 +81,10 @@
       AinesosaController::poista($id); 
   });
   
+  $routes->post('/drinkit/:id/poista', function($id){
+      DrinkkiController::poista($id); 
+  });
+  
   $routes->get('/muokkaa_drinkkia/:id', function($id) {
       DrinkkiController::drinkin_muokkaus($id);
   });
