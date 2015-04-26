@@ -40,8 +40,8 @@
       DrinkkiController::hyvaksy_drinkiksi($id);
   });
   
-  $routes->get('/muokkaa_drinkkia', function() {
-      DrinkkiController::drinkin_muokkaus();
+  $routes->get('/muokkaa_drinkkia/:id', function($id) {
+      DrinkkiController::drinkin_muokkaus($id);
   });
   
   $routes->get('/ainesosat', function() {

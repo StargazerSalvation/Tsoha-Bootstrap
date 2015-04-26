@@ -1,77 +1,81 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Muokkaa drinkkiä Long island ice tea</h1>
+<h1>Muokkaa drinkkiä {{drinkki.nimi}}</h1>
 <form>
     <div class="form-group">
         <label>Nimi</label>
-        <input type="text" class="form-control" value="Long island ice tea"/>
+        <input type="text" class="form-control" value="{{drinkki.nimi}}"/>
     </div>
     
     <div class="form-group">
         <label>Kuvaus</label>
-        <textarea class="form-control"></textarea>
+        <textarea class="form-control">{{drinkki.kuvaus}}</textarea>
     </div>
     
     <div class="form-group">
         <label>Ohje</label>
-        <textarea class="form-control">Laita ravistimeen jäitä, lisää muut ainesosat. ja sekoita pikaisesti. Kaada juoma lasiin, jossa on jääpaloja pohjalla. Valmiin juoman tulisi poreilla kevyesti. Koristele juoma sitruunaviipaleella.
-        </textarea>
+        <textarea class="form-control">{{drinkki.ohje}}</textarea>
     </div>
     
     <div class="form-group">
         <label>Ajankohta</label>
-        <input type="text" class="form-control" value="All day"/>
+        <input type="text" class="form-control" value="{{drinkki.ajankohta}}"/>
     </div>
     
     <div class="form-group">
         <label>Makeus</label>
-        <input type="text" class="form-control" value="Makeahko"/>
+        <input type="text" class="form-control" value="{{drinkki.makeus}}"/>
     </div>
     <div class="form-group">
         <label>Lämpötila</label>
-        <input type="text" class="form-control" value="Jäinen"/>
+        <input type="text" class="form-control" value="{{drinkki.lampotila}}"/>
     </div>
     
     <div class="form-group">
         <label>Lasi</label>
-        <input type="text" class="form-control" value="Collins-lasi"/>
+        <input type="text" class="form-control" value="{{drinkki.lasi}}"/>
     </div>
      <div class="form-group">
         <label>Valmistus menetelmä</label>
-        <input type="text" class="form-control" value="ravistetaan"/>
+        <input type="text" class="form-control" value="{{drinkki.menetelma}}"/>
     </div>
     
     <div class="form-group">
         <label>Ainesosat</label>
         <table class="table table-striped table-bordered">
-            <tr>
-                <td><input type="text" class="form-control" value="Gin"/></td>
-                <td><input type="text" class="form-control" value="1 cl"/></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="form-control" value="Rommi (vaalea)"/></td>
-                <td><input type="text" class="form-control" value="1 cl"/></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="form-control" value="Cola limsa"/></td>
-                <td><input type="text" class="form-control" value="1 dl"/></td>
-            </tr>
-            <tr> 
-                <td><input type="text" class="form-control" value="Siirappi (sitruuna)"/></td>
-                <td><input type="text" class="form-control" value="1,5 cl"/></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="form-control" value="Triple sec"/></td>
-                <td><input type="text" class="form-control" value="1 cl"/></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="form-control" value="Tequila"/></td>
-                <td><input type="text" class="form-control" value="1 cl"/></td>
-            </tr>
-            <tr> 
-                <td><input type="text" class="form-control" value="Vodka"/></td>
-                <td><input type="text" class="form-control" value="1 cl"/></td>
-            </tr>
+            <thead>
+                <th>Ainesosa</th>
+                <th>Määrä</th>
+            </thead>
+            {% set i = 0 %}
+            {% for ainesosa in drinkki.aineet %}
+            {% set i = i + 1 %}
+                <tr>
+                    <td>
+                        <select class="form-control" name="aineet[]">
+                        {% for aine in kaikki_aineet %}
+                            {% if aine.id == ainesosa.id %}
+                                <option value="{{aine.id}}" selected="{{ainesosa.id}}">{{aine.nimi}}</option>
+                            {% else %}
+                                <option value="{{aine.id}}">{{aine.nimi}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control" name="maara[]" value="{{ainesosa.maara}}" /></td>
+                </tr>
+            {% endfor %}
+            {% set loppu = 9 - i %}
+            {% for x in 0..loppu %}
+                <tr>
+                    <td><select class="form-control" name="aineet[]">
+                        {% for ainesosa in ainesosat %}
+                        <option value="{{ainesosa.id}}">{{ainesosa.nimi}}</option>
+                        {% endfor %}
+                        </select></td>
+                    <td><input type="text" class="form-control" name="maara[]" value="{{ainesosa.maara}}" /></td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
     

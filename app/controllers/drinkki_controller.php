@@ -27,9 +27,12 @@ class DrinkkiController extends BaseController{
         Redirect::to('/drinkit/' . $id, array('message'=> 'Drinkki hyväksytty'));
     }
     
-    public static function drinkin_muokkaus(){
+    public static function drinkin_muokkaus($id){
         self::check_logged_in();
-        View::make('drinkki/drinkin_muokkaus.html');
+        $drinkki = Drinkki::etsi($id);
+        $ainesosat = Ainesosa::kaikki();
+        View::make('drinkki/drinkin_muokkaus.html', 
+                array('drinkki' => $drinkki, 'kaikki_aineet' => $ainesosat));
     }
     
     public static function  ehdotukset(){
