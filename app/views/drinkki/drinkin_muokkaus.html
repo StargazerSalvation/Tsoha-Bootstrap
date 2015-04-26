@@ -69,8 +69,8 @@
             {% for x in 0..loppu %}
                 <tr>
                     <td><select class="form-control" name="aineet[]">
-                        {% for ainesosa in ainesosat %}
-                        <option value="{{ainesosa.id}}">{{ainesosa.nimi}}</option>
+                        {% for aine in kaikki_aineet %}
+                        <option value="{{aine.id}}">{{aine.nimi}}</option>
                         {% endfor %}
                         </select></td>
                     <td><input type="text" class="form-control" name="maara[]" value="{{ainesosa.maara}}" /></td>
