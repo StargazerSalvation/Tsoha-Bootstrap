@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Muokkaa ainesosaa: {{ainesosa.nimi}}</h1>
-<form method="post" action="{{base_path}}/ainesosa/{{ainesosa.id}}/muokkaa" style="display: inline-block;">
+<form method="post" action="{{base_path}}/ainesosa/{{ainesosa.id}}/muokkaa">
     <div class="form-group">
         <label>Nimi</label>
         <input type="text" class="form-control" name="nimi" value="{{ainesosa.nimi}}"/>

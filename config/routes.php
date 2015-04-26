@@ -39,11 +39,7 @@
   $routes->post('/drinkit/hyvaksy/:id', function($id){
       DrinkkiController::hyvaksy_drinkiksi($id);
   });
-  
-  $routes->get('/muokkaa_drinkkia/:id', function($id) {
-      DrinkkiController::drinkin_muokkaus($id);
-  });
-  
+    
   $routes->get('/ainesosat', function() {
       AinesosaController::listaa();
   });
@@ -83,4 +79,12 @@
   
   $routes->post('/ainesosa/:id/poista', function($id){
       AinesosaController::poista($id); 
+  });
+  
+  $routes->get('/muokkaa_drinkkia/:id', function($id) {
+      DrinkkiController::drinkin_muokkaus($id);
+  });
+  
+  $routes->post('/drinkit/:id/muokkaa', function($id){
+      DrinkkiController::paivita($id);
   });

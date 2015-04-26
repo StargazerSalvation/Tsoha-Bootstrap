@@ -1,43 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Muokkaa drinkkiä {{drinkki.nimi}}</h1>
-<form>
+<form method="post" action="{{base_path}}/drinkit/{{drinkki.id}}/muokkaa">
     <div class="form-group">
         <label>Nimi</label>
-        <input type="text" class="form-control" value="{{drinkki.nimi}}"/>
+        <input type="text" class="form-control" name="nimi" value="{{drinkki.nimi}}"/>
     </div>
     
     <div class="form-group">
         <label>Kuvaus</label>
-        <textarea class="form-control">{{drinkki.kuvaus}}</textarea>
+        <textarea class="form-control" name="kuvaus">{{drinkki.kuvaus}}</textarea>
     </div>
     
     <div class="form-group">
         <label>Ohje</label>
-        <textarea class="form-control">{{drinkki.ohje}}</textarea>
+        <textarea class="form-control" name="ohje">{{drinkki.ohje}}</textarea>
     </div>
     
     <div class="form-group">
         <label>Ajankohta</label>
-        <input type="text" class="form-control" value="{{drinkki.ajankohta}}"/>
+        <input type="text" class="form-control" name="ajankohta" value="{{drinkki.ajankohta}}"/>
     </div>
     
     <div class="form-group">
         <label>Makeus</label>
-        <input type="text" class="form-control" value="{{drinkki.makeus}}"/>
+        <input type="text" class="form-control" name="makeus" value="{{drinkki.makeus}}"/>
     </div>
     <div class="form-group">
         <label>Lämpötila</label>
-        <input type="text" class="form-control" value="{{drinkki.lampotila}}"/>
+        <input type="text" class="form-control" name="lampotila" value="{{drinkki.lampotila}}"/>
     </div>
     
     <div class="form-group">
         <label>Lasi</label>
-        <input type="text" class="form-control" value="{{drinkki.lasi}}"/>
+        <input type="text" class="form-control" name="lasi" value="{{drinkki.lasi}}"/>
     </div>
      <div class="form-group">
         <label>Valmistus menetelmä</label>
-        <input type="text" class="form-control" value="{{drinkki.menetelma}}"/>
+        <input type="text" class="form-control" name="menetelma" value="{{drinkki.menetelma}}"/>
     </div>
     
     <div class="form-group">

@@ -170,6 +170,39 @@ class Drinkki extends BaseModel {
         return $ehdotukset;
     }
     
+    public function paivita(){
+        // Poistetaan ensin vanhat drinkki_aineet rivit ko. drinkille, mikäli on lisätty tai muutettu
+        // drinkin ainesosia, jos on helpompi tapa tähän niin voisi erikseen katsoa onko niitä muutettu tai ei.
+        
+        $query = DB::connection()->prepare('DELETE from Drinkki_aineet where drinkki_id = :id');
+        $query->execute(array('id' => $this->id));
+        
+        // Päivitetään vain drinkin tiedot
+        $query = DB::connection()->prepare('UPDATE Drinkit SET nimi = :nimi, '
+                . 'kuvaus = :kuvaus, ohje = :ohje, ajankohta = :ajankohta, '
+                . 'makeus = :makeus, lasi = :lasi, lampotila = :lampotila, '
+                . 'menetelma = :menetelma, hyvaksytty_ehdotus = false WHERE id = :id');
+        
+        $query->execute(array('id' => $this->id,
+                        'nimi' => $this->nimi,
+                        'kuvaus' => $this->kuvaus,
+                        'ohje' => $this->ohje,
+                        'ajankohta' => $this->ajankohta,
+                        'makeus' => $this->makeus,
+                        'lasi' => $this->lasi,
+                        'lampotila' => $this->lampotila,
+                        'menetelma' => $this->menetelma));
+        
+        // Luodaan Drinkki_aineet kytkökset uudelleen tyhjältä pöydältä.
+        foreach ( $this->aineet as $aine ){
+            
+            $query = DB::connection()->prepare('INSERT INTO Drinkki_aineet (drinkki_id, aine_id, maara) VALUES (:drinkki_id, :aine_id, :maara)');
+            $query->execute(array('drinkki_id' => $this->id,
+                                    'aine_id' => $aine['id'],
+                                    'maara' => $aine['maara']));                     
+        }       
+    }
+    
     public function tallenna(){        
         $query = DB::connection()->prepare('INSERT INTO Drinkit (nimi, kuvaus, ohje, ajankohta, makeus, lasi, lampotila, menetelma, ehdottaja_id) VALUES (:nimi, :kuvaus, :ohje, :ajankohta, :makeus, :lasi, :lampotila, :menetelma, :ehdottaja_id) RETURNING id');
         $query->execute(array('nimi' => $this->nimi,
